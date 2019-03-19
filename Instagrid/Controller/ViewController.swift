@@ -7,18 +7,36 @@
 //
 
 import UIKit
+import Photos
 
 class ViewController: UIViewController {
     @IBOutlet weak var picturesView: PicturesView!
     @IBOutlet var dispositions :[UIButton]!
     var indexOfColor = 0
+    var buttonClicked: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         clearImageDisposition()
         picturesView.currentTemplate = .Two
         dispositions[1].imageView?.isHidden = false
+        
+        let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(handleGesture))
+        swipeUp.direction = .up
+        self.view.addGestureRecognizer(swipeUp)
+
         // Do any additional setup after loading the view, typically from a nib.
+    }
+    
+    
+
+    
+    @objc func handleGesture(gesture: UISwipeGestureRecognizer) -> Void {
+ 
+       if gesture.direction == UISwipeGestureRecognizer.Direction.up {
+            print("Swipe Up")
+        }
+
     }
     
     func clearImageDisposition() {
@@ -46,5 +64,57 @@ class ViewController: UIViewController {
         }
     }
     
+    func pickAnImage() {
+        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+            PHPhotoLibrary.requestAuthorization { (status) in
+                let myPickerController = UIImagePickerController()
+                myPickerController.delegate = self
+                myPickerController.sourceType = .photoLibrary
+                self.present(myPickerController, animated: true)
+            }
+        }
+    }
+    
+    func alertForCameraAndPhotoLibrary() {
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.delegate = self
+        
+        let alertSheet = UIAlertController(title: "Photo source", message: "Choose a source", preferredStyle: .actionSheet)
+        
+        alertSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (UIAlertAction) in
+            print("camera access")
+            imagePickerController.sourceType = .camera
+            self.present(imagePickerController, animated: true, completion: nil)
+        }))
+        alertSheet.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: { (UIAlertAction) in
+            print("Library access")
+            self.pickAnImage()
+        }))
+        alertSheet.addAction(UIAlertAction(title: "cancel", style: .cancel, handler: nil))
+        
+        self.present(alertSheet, animated: true, completion: nil)
+    }
+    
+    @IBAction func pressButtonForAddImage(_ sender: UIButton) {
+        buttonClicked = sender
+       alertForCameraAndPhotoLibrary()
+    }
+    
+    
 }
 
+extension ViewController: UIImagePickerControllerDelegate,  UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]){
+        if info[UIImagePickerController.InfoKey.originalImage] != nil {
+            if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+                buttonClicked?.setImage(image, for: .normal)
+       
+            }
+        }
+        dismiss(animated: true)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
+}

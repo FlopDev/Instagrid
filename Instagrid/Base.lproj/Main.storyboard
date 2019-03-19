@@ -35,42 +35,54 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="AiR-WS-W2Q">
                                                 <rect key="frame" x="0.0" y="0.0" width="284" height="138"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cYq-UG-mbb">
+                                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cYq-UG-mbb">
                                                         <rect key="frame" x="0.0" y="0.0" width="138" height="138"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="73"/>
                                                         <state key="normal" title="+">
                                                             <color key="titleColor" red="0.13159003850000001" green="0.38511002059999999" blue="0.56765049700000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         </state>
+                                                        <connections>
+                                                            <action selector="pressButtonForAddImage:" destination="BYZ-38-t0r" eventType="touchUpInside" id="WA6-Ny-1JK"/>
+                                                        </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IKp-bM-8hu">
+                                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IKp-bM-8hu">
                                                         <rect key="frame" x="146" y="0.0" width="138" height="138"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="73"/>
                                                         <state key="normal" title="+">
                                                             <color key="titleColor" red="0.13159003850000001" green="0.38511002059999999" blue="0.56765049700000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         </state>
+                                                        <connections>
+                                                            <action selector="pressButtonForAddImage:" destination="BYZ-38-t0r" eventType="touchUpInside" id="jcn-qH-LOk"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="n64-Kq-hMs">
                                                 <rect key="frame" x="0.0" y="146" width="284" height="138"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sD8-V5-q4G">
+                                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sD8-V5-q4G">
                                                         <rect key="frame" x="0.0" y="0.0" width="138" height="138"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="73"/>
                                                         <state key="normal" title="+">
                                                             <color key="titleColor" red="0.13159003850000001" green="0.38511002059999999" blue="0.56765049700000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         </state>
+                                                        <connections>
+                                                            <action selector="pressButtonForAddImage:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qQV-Wj-0kU"/>
+                                                        </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EQN-kb-kNI">
+                                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EQN-kb-kNI">
                                                         <rect key="frame" x="146" y="0.0" width="138" height="138"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="73"/>
                                                         <state key="normal" title="+">
                                                             <color key="titleColor" red="0.13159003850000001" green="0.38511002059999999" blue="0.56765049700000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         </state>
+                                                        <connections>
+                                                            <action selector="pressButtonForAddImage:" destination="BYZ-38-t0r" eventType="touchUpInside" id="3ev-jj-GiY"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                             </stackView>

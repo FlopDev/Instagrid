@@ -46,5 +46,9 @@
 		<string>Delm-Medium.otf</string>
 		<string>ThirstySoftRegular.otf</string>
 	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>Please, take a picture !</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Please, choose a picture !</string>
 </dict>
 </plist>
