@@ -185,6 +185,10 @@
                         <outletCollection property="dispositions" destination="UlB-NX-VYm" collectionClass="NSMutableArray" id="UWm-1z-y4v"/>
                         <outletCollection property="dispositions" destination="tXe-Ca-h6R" collectionClass="NSMutableArray" id="un9-Nl-CNI"/>
                         <outletCollection property="dispositions" destination="6EE-YT-cZx" collectionClass="NSMutableArray" id="RRV-u3-rHW"/>
+                        <outletCollection property="buttons" destination="cYq-UG-mbb" collectionClass="NSMutableArray" id="n0E-nG-tCS"/>
+                        <outletCollection property="buttons" destination="IKp-bM-8hu" collectionClass="NSMutableArray" id="y0S-2y-x6Q"/>
+                        <outletCollection property="buttons" destination="sD8-V5-q4G" collectionClass="NSMutableArray" id="F6t-dV-zqt"/>
+                        <outletCollection property="buttons" destination="EQN-kb-kNI" collectionClass="NSMutableArray" id="7Ml-2t-1Sy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

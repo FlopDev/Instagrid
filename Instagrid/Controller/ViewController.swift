@@ -12,11 +12,15 @@ import Photos
 class ViewController: UIViewController {
     @IBOutlet weak var picturesView: PicturesView!
     @IBOutlet var dispositions :[UIButton]!
+    @IBOutlet var buttons: [UIButton]!
     var indexOfColor = 0
     var buttonClicked: UIButton!
+    let imagePicker = UIImagePickerController()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        imagePicker.delegate = self
         clearImageDisposition()
         picturesView.currentTemplate = .Two
         dispositions[1].imageView?.isHidden = false
@@ -29,14 +33,42 @@ class ViewController: UIViewController {
     }
     
     
-
+    func share() {
+        let activityController = UIActivityViewController(activityItems: [picturesView.asImage()], applicationActivities: nil)
+        present(activityController, animated: true, completion: nil)
+        resetBackgroundAndText()
+    }
+    
+    func allowsShare() {
+        var buttonWithPictures = 0
+        if picturesView.currentTemplate == .One || picturesView.currentTemplate == .Two {
+            for button in buttons {
+                if (button.currentBackgroundImage) != nil {
+                    buttonWithPictures += 1
+                }
+                if buttonWithPictures == 3 {
+                    share()
+                }
+            }
+        }
+        if picturesView.currentTemplate == .Three {
+            for button in buttons {
+                if (button.currentBackgroundImage) != nil {
+                    buttonWithPictures += 1
+                }
+                if buttonWithPictures == 4 {
+                    share()
+                }
+            }
+        }
+    }
     
     @objc func handleGesture(gesture: UISwipeGestureRecognizer) -> Void {
  
        if gesture.direction == UISwipeGestureRecognizer.Direction.up {
             print("Swipe Up")
+            allowsShare()
         }
-
     }
     
     func clearImageDisposition() {
@@ -44,6 +76,14 @@ class ViewController: UIViewController {
             disposition.imageView?.isHidden = true
         }
     }
+    
+    func resetBackgroundAndText() {
+        for button in buttons {
+            button.setBackgroundImage(nil, for: .normal)
+            button.setTitle("+", for: .normal)
+        }
+    }
+
 
     @IBAction func didTappedOnDisposition(_ sender: UIButton) {
         clearImageDisposition()
@@ -107,8 +147,9 @@ extension ViewController: UIImagePickerControllerDelegate,  UINavigationControll
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]){
         if info[UIImagePickerController.InfoKey.originalImage] != nil {
             if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-                buttonClicked?.setImage(image, for: .normal)
-       
+                print(buttonClicked)
+                buttonClicked.setBackgroundImage(image, for: .normal)
+                buttonClicked.setTitle("", for: .normal)
             }
         }
         dismiss(animated: true)
