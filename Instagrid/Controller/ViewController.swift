@@ -32,7 +32,25 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
     }
     
-   
+    override func viewWillAppear(_ animated: Bool) {
+        NotificationCenter.default.addObserver(self, selector: #selector(deviceRotated), name: UIDevice.orientationDidChangeNotification, object: nil)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        NotificationCenter.default.removeObserver(self, name: UIDevice.orientationDidChangeNotification, object: nil)
+    }
+    
+    @objc func deviceRotated(){
+        if view.gestureRecognizers?.count == 1 {
+            view.gestureRecognizers?.remove(at: 0)
+        }
+        if UIDevice.current.orientation.isLandscape {
+            orientation(text: "Swip left to share", direction: .left)
+        }
+        if UIDevice.current.orientation.isPortrait {
+            orientation(text: "Swipe up to share ", direction: .up)
+        }
+    }
     
     func orientation(text: String, direction:UISwipeGestureRecognizer.Direction) {
         let swipe = UISwipeGestureRecognizer(target: self, action: #selector(self.handleGesture(gesture:)))
@@ -40,7 +58,6 @@ class ViewController: UIViewController {
         swipe.direction = direction
         self.view.addGestureRecognizer(swipe)
     }
-    
     
     func share() {
         let finalPicture = picturesView.asImage()
@@ -57,7 +74,6 @@ class ViewController: UIViewController {
         }
         animateView(postition: -screenHeight)
     }
-    
     
     func allowsShare(numberOfPicturesAvailable: Int) {
         var buttonWithPic = 0
