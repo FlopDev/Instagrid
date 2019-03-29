@@ -66,8 +66,6 @@
 				CB291130223F52A400CA0CBA /* Model */,
 				CB291132223F52B600CA0CBA /* Controller */,
 				CB291131223F52AB00CA0CBA /* View */,
-				CB291122223F529C00CA0CBA /* Main.storyboard */,
-				CB291138223F5AE600CA0CBA /* PicturesView.swift */,
 				CB291133223F52CE00CA0CBA /* Supporting Files */,
 				CB29112A223F529D00CA0CBA /* Info.plist */,
 			);
@@ -84,6 +82,8 @@
 		CB291131223F52AB00CA0CBA /* View */ = {
 			isa = PBXGroup;
 			children = (
+				CB291138223F5AE600CA0CBA /* PicturesView.swift */,
+				CB291122223F529C00CA0CBA /* Main.storyboard */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -148,6 +148,7 @@
 				TargetAttributes = {
 					CB29111A223F529C00CA0CBA = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1020;
 					};
 				};
 			};
@@ -347,7 +348,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.PeyronyFlorian.Instagrid;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -365,7 +366,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.PeyronyFlorian.Instagrid;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
