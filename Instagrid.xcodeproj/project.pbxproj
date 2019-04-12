@@ -21,14 +21,14 @@
 /* Begin PBXFileReference section */
 		CB29111B223F529C00CA0CBA /* Instagrid.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Instagrid.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB29111E223F529C00CA0CBA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		CB291120223F529C00CA0CBA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		CB291120223F529C00CA0CBA /* ViewController.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		CB291123223F529C00CA0CBA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CB291125223F529D00CA0CBA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CB291128223F529D00CA0CBA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CB29112A223F529D00CA0CBA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CB291134223F52FA00CA0CBA /* ThirstySoftRegular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ThirstySoftRegular.otf; sourceTree = "<group>"; };
 		CB291136223F531400CA0CBA /* Delm-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Delm-Medium.otf"; sourceTree = "<group>"; };
-		CB291138223F5AE600CA0CBA /* PicturesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PicturesView.swift; sourceTree = "<group>"; };
+		CB291138223F5AE600CA0CBA /* PicturesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PicturesView.swift; path = ../View/PicturesView.swift; sourceTree = "<group>"; };
 		CB3F7FED22400C670044F140 /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -75,6 +75,7 @@
 		CB291130223F52A400CA0CBA /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				CB291138223F5AE600CA0CBA /* PicturesView.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -82,7 +83,6 @@
 		CB291131223F52AB00CA0CBA /* View */ = {
 			isa = PBXGroup;
 			children = (
-				CB291138223F5AE600CA0CBA /* PicturesView.swift */,
 				CB291122223F529C00CA0CBA /* Main.storyboard */,
 			);
 			path = View;

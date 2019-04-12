@@ -11,9 +11,7 @@ import Photos
 
 class ViewController: UIViewController {
     @IBOutlet weak var picturesView: PicturesView!
-    @IBOutlet var buttons: [UIButton]!
     @IBOutlet var dispositions: [UIButton]!
-    var indexOfColor = 0
     var buttonClicked: UIButton!
     let imagePicker = UIImagePickerController()
     @IBOutlet weak var swipeText: UILabel!
@@ -21,9 +19,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         imagePicker.delegate = self
-        resetImageDisposition()
         picturesView.currentTemplate = .Two
-        dispositions[1].imageView?.isHidden = false
+        self.dispositions[1].setImage(UIImage(named:"dispositionInUse"), for: [])
         
         let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(handleGesture))
         swipeUp.direction = .up
@@ -66,35 +63,12 @@ class ViewController: UIViewController {
         present(activityController, animated: true, completion: nil)
         activityController.completionWithItemsHandler = { activity, success, items, error in
             self.animateView(postition: 0)
+            self.picturesView.resetImage()
             
-            for button in self.buttons {
-                button.setImage(nil, for: .normal)
-                button.imageView?.image = nil
-            }
         }
         animateView(postition: -screenHeight)
     }
     
-    func allowsShare(numberOfPicturesAvailable: Int) {
-        var buttonWithPic = 0
-        for button in buttons {
-            if button.isHidden {
-                print("Button hide")
-            } else {
-                if ((button.imageView?.image) != nil) {
-                    buttonWithPic += 1
-                } else {
-                    print("add picture")
-                }
-            }
-        }
-        
-        if buttonWithPic == numberOfPicturesAvailable {
-            share()
-        } else {
-            alert(titleEntered: "Add picture", messageEntered: "Please, add picture on all dispositions before swipe up to share")
-        }
-    }
     
     func alert(titleEntered: String, messageEntered: String) {
         let alert = UIAlertController(title: titleEntered , message: messageEntered , preferredStyle: .alert)
@@ -111,46 +85,37 @@ class ViewController: UIViewController {
     }
     
     @objc func handleGesture(gesture: UISwipeGestureRecognizer) -> Void {
+        
         if picturesView.currentTemplate == .One || picturesView.currentTemplate == .Two {
-            allowsShare(numberOfPicturesAvailable: 3)
+            if picturesView.allowsShare(numberOfButtonNeedImage: 3) == true {
+                share()
+            } else {
+                alert(titleEntered: "Add picture", messageEntered: "Please, add picture on all dispositions before swipe up to share")
+            }
+        }
+        else if picturesView.currentTemplate == .Three {
+            if picturesView.allowsShare(numberOfButtonNeedImage: 4) == true {
+                share()
+            } else {
+                alert(titleEntered: "Add picture", messageEntered: "Please, add picture on all dispositions before swipe up to share")
+            }
         }
         
-        if picturesView.currentTemplate == .Three {
-            allowsShare(numberOfPicturesAvailable: 4)
-        }
     }
     
-    func resetImageDisposition() {
+    @IBAction func templateDisposition(_ sender: UIButton) {
         for disposition in dispositions {
-            disposition.imageView?.isHidden = true
+            disposition.setImage(nil, for: [])
         }
-    }
-    
-    func resetImage() {
-        for button in buttons {
-            button.setImage(nil, for: .normal)
-        }
-    }
-    
-    
-    @IBAction func didTappedOnDisposition(_ sender: UIButton) {
-        resetImageDisposition()
-        sender.imageView?.isHidden = false
+        
         if let template = PicturesView.Template(rawValue: sender.tag) {
             picturesView.currentTemplate = template
+            sender.setImage(UIImage(named: "dispositionInUse"), for: [])
         }
+        
     }
-    @IBAction func switchColor(_ sender: Any) {
-        let colors: [UIColor] = [#colorLiteral(red: 0.8549019694, green: 0.250980407, blue: 0.4784313738, alpha: 1),#colorLiteral(red: 0.5910229683, green: 0.3601167798, blue: 0, alpha: 1),#colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1),#colorLiteral(red: 0.3333333433, green: 0.3333333433, blue: 0.3333333433, alpha: 1),#colorLiteral(red: 0.1764705926, green: 0.01176470611, blue: 0.5607843399, alpha: 1),#colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1),#colorLiteral(red: 0.9411764741, green: 0.4980392158, blue: 0.3529411852, alpha: 1),#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1),#colorLiteral(red: 0.1315900385, green: 0.3851100206, blue: 0.567650497, alpha: 1)]
-        picturesView.backgroundColor = colors[indexOfColor]
-        for button in picturesView.buttons {
-            button.setTitleColor(colors[indexOfColor], for: [])
-        }
-        indexOfColor += 1
-        if indexOfColor == 9 {
-            indexOfColor = 0
-        }
-    }
+    
+    
     
     func pickAnImage() {
         if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
@@ -183,7 +148,8 @@ class ViewController: UIViewController {
         self.present(alertSheet, animated: true, completion: nil)
     }
     
-    @IBAction func pressButtonForAddImage(_ sender: UIButton) {buttonClicked = sender
+    @IBAction func pressButtonForAddImage(_ sender: UIButton) {
+        buttonClicked = sender
         let imagePickerController = UIImagePickerController()
         imagePickerController.delegate = self
         
@@ -205,7 +171,6 @@ class ViewController: UIViewController {
         
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         self.present(actionSheet, animated: true, completion: nil)
-        
     }
 }
 
@@ -214,6 +179,7 @@ extension ViewController: UIImagePickerControllerDelegate,  UINavigationControll
         if info[UIImagePickerController.InfoKey.originalImage] != nil {
             if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
                 buttonClicked.setImage(image, for: .normal)
+                buttonClicked.imageView?.contentMode = UIView.ContentMode.scaleAspectFill
             }
         }
         dismiss(animated: true)
