@@ -10,6 +10,7 @@ import UIKit
 import Photos
 
 class ViewController: UIViewController {
+    
     @IBOutlet weak var picturesView: PicturesView!
     @IBOutlet var dispositions: [UIButton]!
     var buttonClicked: UIButton!
@@ -49,7 +50,7 @@ class ViewController: UIViewController {
         }
     }
     
-    func orientation(text: String, direction:UISwipeGestureRecognizer.Direction) {
+    func orientation(text: String, direction: UISwipeGestureRecognizer.Direction) {
         let swipe = UISwipeGestureRecognizer(target: self, action: #selector(self.handleGesture(gesture:)))
         swipeText.text = text
         swipe.direction = direction
@@ -90,34 +91,29 @@ class ViewController: UIViewController {
             if picturesView.allowsShare(numberOfButtonNeedImage: 3) == true {
                 share()
             } else {
-                alert(titleEntered: "Add picture", messageEntered: "Please, add picture on all dispositions before swipe up to share")
+                alert(titleEntered: "Add picture", messageEntered: "Please, add picture on all buttons before swipe to share")
             }
         }
         else if picturesView.currentTemplate == .Three {
             if picturesView.allowsShare(numberOfButtonNeedImage: 4) == true {
                 share()
             } else {
-                alert(titleEntered: "Add picture", messageEntered: "Please, add picture on all dispositions before swipe up to share")
+                alert(titleEntered: "Add picture", messageEntered: "Please, add picture on all buttons before swipe to share")
             }
         }
-        
     }
     
     @IBAction func templateDisposition(_ sender: UIButton) {
         for disposition in dispositions {
             disposition.setImage(nil, for: [])
         }
-        
         if let template = PicturesView.Template(rawValue: sender.tag) {
             picturesView.currentTemplate = template
             sender.setImage(UIImage(named: "dispositionInUse"), for: [])
         }
-        
     }
     
-    
-    
-    func pickAnImage() {
+    func library() {
         if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
             PHPhotoLibrary.requestAuthorization { (status) in
                 let myPickerController = UIImagePickerController()
@@ -128,20 +124,30 @@ class ViewController: UIViewController {
         }
     }
     
+    func camera()  {
+            let myPickerController = UIImagePickerController()
+            myPickerController.delegate = self;
+            myPickerController.sourceType = .camera
+            self.present(myPickerController, animated: true, completion: nil)
+    }
+    
     func alertForCameraAndPhotoLibrary() {
         let imagePickerController = UIImagePickerController()
         imagePickerController.delegate = self
         
         let alertSheet = UIAlertController(title: "Photo source", message: "Choose a source", preferredStyle: .actionSheet)
         
-        alertSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (UIAlertAction) in
-            print("camera access")
-            imagePickerController.sourceType = .camera
-            self.present(imagePickerController, animated: true, completion: nil)
+        alertSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (action: UIAlertAction) in
+            if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                self.camera()
+            } else {
+                print("Camera not available")
+                self.alert(titleEntered: "Camera not avalaible", messageEntered: "Please, choose a picture in your Photo Library")
+            }
         }))
         alertSheet.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: { (UIAlertAction) in
             print("Library access")
-            self.pickAnImage()
+            self.library()
         }))
         alertSheet.addAction(UIAlertAction(title: "cancel", style: .cancel, handler: nil))
         
@@ -150,27 +156,7 @@ class ViewController: UIViewController {
     
     @IBAction func pressButtonForAddImage(_ sender: UIButton) {
         buttonClicked = sender
-        let imagePickerController = UIImagePickerController()
-        imagePickerController.delegate = self
-        
-        let actionSheet = UIAlertController(title: "Photo Source", message: "Select a source", preferredStyle: .actionSheet)
-        
-        actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (action: UIAlertAction) in
-            if UIImagePickerController.isSourceTypeAvailable(.camera) {
-                imagePickerController.sourceType = .camera
-                self.present(imagePickerController, animated: true, completion: nil)
-            } else {
-                print("Camera not available")
-                self.alert(titleEntered: "Camera not avalaible", messageEntered: "Please, choose a picture in your Photo Library")
-            }
-        }))
-        actionSheet.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: { (action: UIAlertAction) in
-            self.pickAnImage()
-            
-        }))
-        
-        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        self.present(actionSheet, animated: true, completion: nil)
+        alertForCameraAndPhotoLibrary()
     }
 }
 
@@ -178,8 +164,8 @@ extension ViewController: UIImagePickerControllerDelegate,  UINavigationControll
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]){
         if info[UIImagePickerController.InfoKey.originalImage] != nil {
             if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-                buttonClicked.setImage(image, for: .normal)
                 buttonClicked.imageView?.contentMode = UIView.ContentMode.scaleAspectFill
+                buttonClicked.setImage(image, for: .normal)
             }
         }
         dismiss(animated: true)

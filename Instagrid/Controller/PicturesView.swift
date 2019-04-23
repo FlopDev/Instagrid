@@ -75,6 +75,7 @@ class PicturesView: UIView {
             button.setTitleColor(colors[indexOfColor], for: [])
         }
         indexOfColor += 1
+        print(indexOfColor)
         if indexOfColor == 9 {
             indexOfColor = 0
         }
